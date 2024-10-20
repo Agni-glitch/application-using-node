@@ -1,27 +1,140 @@
-<div class="page-content">
-    <div class="product-page">
-        <div class="product-desc">
-            <div class="product-desc-image">
-                <img src={{%IMAGE%}} height="280" width="320">
-            </div>
-            <div class="product-details-info">
-                <h1>{{%NAME%}}</h1>
-                <h2 style="color: green;">${{%PRICE%}}</h2>
-                <p class="product-desc-p">{{%SIZE}}</p>
-                <p class="product-desc-p">{{%CAMERA%}}</p>
-                <p class="product-desc-p"><b>Model Number</b>{{%MODELNO%}}</p>
-                <p class="product-desc-p"><b>Model Name</b>{{%MODELNAME%}}</p>
-                <p class="product-desc-p"><b>ROM</b>{{%ROM%}}</p>
-            </div>
-            <div class="product-details-desc">
-                <h3>Product Description</h3>
-                <p class="product-desc-p">
-                    {{%DESC%}}
-                </p>
-            </div>
-            <div>
-                <a href="/products" class="btn-back">Back</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Page - Dark Theme</title>
+    <style>
+        /* General Page Styling */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #121212; /* Dark background */
+            color: #E0E0E0; /* Light text */
+        }
+
+        .page-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            min-height: 100vh;
+            flex-direction: row;
+        }
+
+        .product-page {
+            background-color: #1E1E1E; /* Slightly lighter dark background */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6); /* Subtle shadow for depth */
+            width: 80%;
+            max-width: 1000px;
+        }
+        .product-desc{
+            display: flex;
+            flex-direction: column;
+        }
+        .product-desc-image img {
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Shadow for the product image */
+        }
+
+        .product-details-info h1, .product-details-info h2 {
+            margin: 0;
+        }
+
+        .product-details-info h1 {
+            font-size: 2rem;
+            color: #BB86FC; /* Accent color for the product name */
+        }
+
+        .product-details-info h2 {
+            font-size: 1.5rem;
+            color: #00E676; /* Green color for the price */
+        }
+
+        .product-details-info p {
+            font-size: 1rem;
+            margin: 5px 0;
+            color: #B0BEC5; /* Lighter gray for secondary text */
+        }
+
+        /* Bold elements */
+        .product-details-info b {
+            color: #FFFFFF;
+        }
+
+        .product-details-desc h3 {
+            color: #BB86FC; /* Accent color for subheadings */
+            margin-bottom: 10px;
+        }
+
+        /* Button Styling */
+        .btn-back {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            background-color: #BB86FC; /* Accent color for the button */
+            color: #121212;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-back:hover {
+            background-color: #3700B3; /* Darker shade on hover */
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .product-page {
+                width: 100%;
+                padding: 10px;
+            }
+
+            .product-details-info h1 {
+                font-size: 1.6rem;
+            }
+
+            .product-details-info h2 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page-content">
+        <div class="product-page">
+            <div class="product-desc">
+                <div class="product-desc-image">
+                    <img src={{%IMAGE%}} height="280" width="320" alt="Product Image">
+                </div>
+                <div class="product-details-info">
+                    <h1>{{%NAME%}}</h1>
+                    <h2 style="color: green;">${{%PRICE%}}</h2>
+                    <p class="product-desc-p">{{%CAMERA%}}</p>
+                    <!-- <p class="product-desc-p">{{%SIZE%}}</p> -->
+                    <p class="product-desc-p"><b>Model Number</b> {{%MODELNO%}}</p>
+                    <p class="product-desc-p"><b>Model Name</b> {{%MODELNAME%}}</p>
+                    <p class="product-desc-p"><b>ROM</b> {{%ROM%}} GB</p>
+                </div>
+                <div class="product-details-desc">
+                    <h3>Product Description</h3>
+                    <p class="product-desc-p">
+                        {{%DESC%}}
+                    </p>
+                </div>
+                <div>
+                    <a href="/products" class="btn-back">Back</a>
+                </div>
+                <div>
+                    <a href="/contactus" class="btn-back">Buy</a>
+                </div>
             </div>
         </div>
     </div>
-</div>
+
+</body>
+</html>

@@ -3,18 +3,26 @@ const fs = require('fs');
 const url = require('url');
 const replaceHtml = require('./module');
 
-let html = fs.readFileSync('./index.html', 'utf-8');
+let html;
+try {
+    html = fs.readFileSync('./index.html', 'utf-8');
+} catch (err) {
+    console.error("Error reading index.html:", err);
+}
 let products = JSON.parse(fs.readFileSync('./products.json', 'utf-8'));
 let productListItem = fs.readFileSync('./productList.html', 'utf-8');
 let productDetailItem = fs.readFileSync('./product-details.html', 'utf-8');
+let contacts=fs.readFileSync('./contacts.html','utf-8')
 
-const server = http.createServer();
-
-server.on('request', (request, response) => {
+const server = http.createServer((request, response) => {
     let { query, pathname: path } = url.parse(request.url, true);
-
-    if (path === '/html' || path === '/home' || path === '/') {
-        response.end(html.replace('{{%CONTENT%}}', 'you are in home page'));
+    console.log(`Received request for: ${path}`);
+    if (path === '/home' || path === '/') {
+        response.writeHead(200, { 'content-type': 'text/html' });
+        response.end(html.replace('{{%CONTENT%}}', 'You are on the home page'));
+    } else if(path === '/contactus'){
+        response.writeHead(200, { 'content-type': 'text/html' });
+        response.end(html.replace('{{%CONTENT%}}', contacts));
     } else if (path === '/products') {
         if (!query.id) {
             let productHtmlArray = products.map((prod) => {
@@ -24,22 +32,22 @@ server.on('request', (request, response) => {
             let productResponse = html.replace('{{%CONTENT%}}', productHtmlArray.join(''));
             response.end(productResponse);
         } else {
-            let prod = products[query.id];
+            let prod = products.find(p => p.id === Number(query.id));
             if (prod) {
                 let productDetailResponseHtml = replaceHtml(productDetailItem, prod);
                 response.writeHead(200, { 'content-type': 'text/html' });
                 response.end(html.replace('{{%CONTENT%}}', productDetailResponseHtml));
             } else {
                 response.writeHead(404, { 'content-type': 'text/html' });
-                response.end('Product not found');
+                response.end(html.replace('{{%CONTENT%}}', 'Product not found'));
             }
         }
     } else {
         response.writeHead(404, { 'content-type': 'text/html' });
-        response.end('Page not found');
+        response.end(html.replace('{{%CONTENT%}}', 'Page not found'));
     }
 });
 
-server.listen(9000, '127.0.0.1', () => {
-    console.log("Server has started");
+server.listen(5500, '127.0.0.1', () => {
+    console.log("Server has started on port 5500");
 });
